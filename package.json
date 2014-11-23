@@ -1,0 +1,27 @@
+{
+  "name": "gulp-wordpress-template",
+  "version": "0.0.1",
+  "description": "A very basic proof-of-concept, showing that gulp can work as a replacement for MAMP/XAMPP and also extend their features for SASS compiling for example.",
+  "keywords": [
+    "gulp",
+    "wordpress",
+    "php",
+    "mysql",
+    "livereload",
+    "browser-sync",
+    "mamp",
+    "xamp",
+    "sass"
+  ],
+  "author": "jan@amann.me",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.8.8",
+    "browser-sync": "^1.5.7",
+    "gulp-sass": "^1.1.0",
+    "gulp-autoprefixer": "^1.0.1",
+    "gulp-connect-php": "^0.0.2",
+    "gulp-load-plugins": "^0.7.1",
+    "gulp-shell": "^0.2.10"
+  }
+}
