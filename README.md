@@ -7,7 +7,7 @@ Alias: ``gulp``
 
 Start the development server on ``localhost:3000``. phpMyAdmin is available on ``localhost:1337``.
 
-SASS files are being compiled to the same directory where they are in. E.g. ``wordpress/wp-content/themes/twentyfourteen/style.scss`` is compiled to ``wordpress/wp-content/themes/twentyfourteen/style.scss`` (works also for other themes).
+SASS files are being compiled to the same directory where they are in. E.g. ``wordpress/wp-content/themes/twentyfourteen/style.scss`` is compiled to ``wordpress/wp-content/themes/twentyfourteen/style.css`` (works also for other themes).
 
 ### gulp build
 Not available yet, but should be done if this template is used in production.
