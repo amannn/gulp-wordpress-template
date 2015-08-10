@@ -7,18 +7,36 @@ var APP_FOLDER = 'wordpress',
 
 var SERVERS = {
   DEV: { // Use 0.0.0.0 for access on devices in the same wifi
-    HOST: 'localhost',
+    HOST: '127.0.0.1',
     PORT: 3000
   },
   DEV_PHP: {
-    HOST: 'localhost', // For PHP server that will be proxied to DEV
+    HOST: '127.0.0.1', // For PHP server that will be proxied to DEV
     PORT: 8000
   },
   ADMIN: { // phpMyAdmin
-    HOST: 'localhost',
+    HOST: '127.0.0.1',
     PORT: 1337
   }
 };
+
+var SASS = {
+  IN: APP_FOLDER + '/wp-content/**/*.scss',
+  OUT: APP_FOLDER + '/wp-content'
+};
+
+var FILES = {
+  SASS: {
+    IN: APP_FOLDER + '/wp-content/**/*.scss',
+    OUT: APP_FOLDER + '/wp-content'
+  }
+};
+
+var AUTOPREFIXER_OPTIONS = { browsers: ['last 2 versions'] };
+var LIVE_RELOAD_FILES = [
+  APP_FOLDER + '/wp-content/**/*.css',
+  APP_FOLDER + '/wp-content/**/*.php'
+];
 
 
 // Requires
@@ -32,38 +50,26 @@ var gulp        = require('gulp'),
 // Main tasks
 ///////////////////////////////////////////////////////////////////////////////
 
-gulp.task('serve', ['sass', 'connect', 'browser-sync', 'watch'], function() {
-    console.log('*** browser sync active: ' + browserSync.active);
-});
+gulp.task('serve', ['sass', 'connect', 'browser-sync', 'watch']);
 gulp.task('default', ['serve']);
 
 
 // Sub tasks
 ///////////////////////////////////////////////////////////////////////////////
 
-gulp.task('browser-sync', function() {
-  browserSync({
-    files: [APP_FOLDER + '/wp-content/**/*.css'],
-    proxy: SERVERS.DEV_PHP.HOST + ':' + SERVERS.DEV_PHP.PORT,
-    port: SERVERS.DEV.PORT,
-    notify: false
-  });
-});
-
 gulp.task('sass', function() {
-  return gulp.src(APP_FOLDER + '/wp-content/**/*.scss')
+  return gulp.src(FILES.SASS.IN)
     .pipe($.sass())
-    .pipe($.autoprefixer({
-      browsers: ['last 2 versions']
-    }))
-    .pipe(gulp.dest(APP_FOLDER + '/wp-content'))
+    .pipe($.autoprefixer(AUTOPREFIXER_OPTIONS))
+    .pipe(gulp.dest(FILES.SASS.OUT))
     .pipe(browserSync.reload({
       stream: true
     }));
 });
 
 gulp.task('watch', function() {
-  gulp.watch(APP_FOLDER + '/wp-content/**/*.scss', ['sass']);
+  // Watch for SASS compiling
+  gulp.watch(FILES.SASS.IN, ['sass']);
 });
 
 gulp.task('connect', function() {
@@ -80,5 +86,19 @@ gulp.task('connect', function() {
     open: AUTOOPEN_ADMIN,
     hostname: SERVERS.ADMIN.HOST,
     port: SERVERS.ADMIN.PORT
+  });
+});
+
+gulp.task('browser-sync', function() {
+  browserSync({
+    files: LIVE_RELOAD_FILES,
+    proxy: SERVERS.DEV_PHP.HOST + ':' + SERVERS.DEV_PHP.PORT,
+    port: SERVERS.DEV.PORT,
+    notify: false
+  }, function (err, bs) {
+      if (err)
+        console.log(err);
+      else
+        console.log('BrowserSync is ready.');
   });
 });

@@ -17,11 +17,10 @@
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.8.8",
-    "browser-sync": "^1.5.7",
+    "browser-sync": "^2.2.1",
     "gulp-sass": "^1.1.0",
     "gulp-autoprefixer": "^1.0.1",
-    "gulp-connect-php": "^0.0.2",
-    "gulp-load-plugins": "^0.7.1",
-    "gulp-shell": "^0.2.10"
+    "gulp-connect-php": "^0.0.5",
+    "gulp-load-plugins": "^0.7.1"
   }
 }
